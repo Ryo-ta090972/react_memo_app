@@ -10,7 +10,7 @@ export default function MemoTable({ memos, onSelect, onCreate }) {
   });
 
   list.push(
-    <li key={"createMemo"} onClick={() => onCreate()}>
+    <li key={"createNewMemo"} onClick={() => onCreate()}>
       +
     </li>,
   );

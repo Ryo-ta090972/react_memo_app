@@ -4,53 +4,72 @@ import MemoDetail from "./MemoDetail.js";
 import "./App.css";
 
 function App() {
-  const [memos, setMemos] = useState([]);
+  const [memos, setMemos] = useState(fetchSavedMemos());
   const [selectedMemo, setSelectedMemo] = useState({});
+
+  function fetchSavedMemos() {
+    const savedMemos = localStorage.length === 0 ? [] : getLocalStorage();
+    return savedMemos;
+  }
+
+  function getLocalStorage() {
+    return Object.entries(localStorage).map(([id, content]) => ({
+      id,
+      content,
+    }));
+  }
+
+  function handleCreateNewMemo() {
+    const id = crypto.randomUUID();
+    const content = "新規メモ";
+    createMemos(id, content);
+    setSelectedMemo({ id, content });
+  }
+
+  function createMemos(id, content) {
+    const newMemo = { id, content };
+    const newMemos = [...memos];
+    newMemos.push(newMemo);
+    setMemos(newMemos);
+    localStorage.setItem(id, content);
+  }
 
   function handleSelectMemo(id) {
     if (selectedMemo.id === id) {
       setSelectedMemo({});
     } else {
       const content = memos.find((memo) => memo.id === id).content;
-      setSelectedMemo({ id: id, content: content });
+      setSelectedMemo({ id, content });
     }
   }
 
   function handleEditContent(content) {
     setSelectedMemo({
       ...selectedMemo,
-      content: content,
+      content,
     });
   }
 
-  function handleSaveContent(content) {
+  function handleSaveContent() {
+    const id = selectedMemo.id;
+    const content = selectedMemo.content;
     const newMemos = memos.map((memo) => {
-      if (memo.id === selectedMemo.id) {
-        return {
-          id: selectedMemo.id,
-          content: content,
-        };
-      } else {
-        return memo;
-      }
+      return memo.id === id ? { id, content } : memo;
     });
 
-    return setMemos(newMemos);
+    setMemos(newMemos);
+    localStorage.setItem(id, content);
   }
 
-  function handleDeleteMemo(id) {
-    const newMemos = memos.filter((memo) => memo.id !== id);
-    setMemos(newMemos);
+  function handleDeleteMemo() {
+    deleteMemo();
     setSelectedMemo({});
   }
 
-  function handleCreateMemo() {
-    const uuid = crypto.randomUUID();
-    const newMemo = { id: uuid, content: "新規メモ" };
-    const newMemos = [...memos];
-    newMemos.push(newMemo);
-    setMemos(newMemos);
-    setSelectedMemo(newMemo);
+  function deleteMemo() {
+    const deletedMemos = memos.filter((memo) => memo.id !== selectedMemo.id);
+    setMemos(deletedMemos);
+    localStorage.removeItem(selectedMemo.id);
   }
 
   return (
@@ -58,11 +77,10 @@ function App() {
       <MemoTable
         memos={memos}
         onSelect={handleSelectMemo}
-        onCreate={handleCreateMemo}
+        onCreate={handleCreateNewMemo}
       />
       {selectedMemo.id && (
         <MemoDetail
-          id={selectedMemo.id}
           content={selectedMemo.content}
           onChange={handleEditContent}
           onSave={handleSaveContent}
