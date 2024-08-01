@@ -1,6 +1,7 @@
 import React from "react";
+import "./MemoTable.css";
 
-export default function MemoTable({ memos, onSelect, onCreate }) {
+export default function MemoTable({ memos, selectedId, onSelect, onCreate }) {
   function extractFirstRow(content) {
     const indexOfFirstRow = content.indexOf("\n");
 
@@ -15,22 +16,29 @@ export default function MemoTable({ memos, onSelect, onCreate }) {
 
   const list = memos.map((memo) => {
     const firstRow = extractFirstRow(memo.content);
+    const className = memo.id === selectedId ? "selected" : "list";
+
     return (
-      <li key={memo.id} onClick={() => onSelect(memo.id)}>
+      <span
+        className={className}
+        key={memo.id}
+        onClick={() => onSelect(memo.id)}
+      >
         {firstRow}
-      </li>
+        <br />
+      </span>
     );
   });
 
   list.push(
-    <li key={"createNewMemo"} onClick={() => onCreate()}>
+    <span
+      className="create-new-memo"
+      key={"createNewMemo"}
+      onClick={() => onCreate()}
+    >
       +
-    </li>,
+    </span>,
   );
 
-  return (
-    <>
-      <ul>{list}</ul>
-    </>
-  );
+  return list;
 }

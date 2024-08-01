@@ -73,19 +73,24 @@ function App() {
   }
 
   return (
-    <div>
-      <MemoTable
-        memos={memos}
-        onSelect={handleSelectMemo}
-        onCreate={handleCreateNewMemo}
-      />
-      {selectedMemo.id && (
-        <MemoDetail
-          content={selectedMemo.content}
-          onChange={handleEditContent}
-          onSave={handleSaveContent}
-          onDelete={handleDeleteMemo}
+    <div className="app">
+      <div>
+        <MemoTable
+          memos={memos}
+          selectedId={selectedMemo.id}
+          onSelect={handleSelectMemo}
+          onCreate={handleCreateNewMemo}
         />
+      </div>
+      {selectedMemo.id && (
+        <div>
+          <MemoDetail
+            content={selectedMemo.content}
+            onChange={handleEditContent}
+            onSave={handleSaveContent}
+            onDelete={handleDeleteMemo}
+          />
+        </div>
       )}
     </div>
   );
