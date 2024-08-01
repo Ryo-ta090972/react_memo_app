@@ -8,11 +8,11 @@ function App() {
   const [selectedMemo, setSelectedMemo] = useState({});
 
   function fetchSavedMemos() {
-    const savedMemos = localStorage.length === 0 ? [] : getLocalStorage();
+    const savedMemos = localStorage.length === 0 ? [] : getSavedMemos();
     return savedMemos;
   }
 
-  function getLocalStorage() {
+  function getSavedMemos() {
     return Object.entries(localStorage).map(([id, content]) => ({
       id,
       content,
@@ -22,11 +22,11 @@ function App() {
   function handleCreateNewMemo() {
     const id = crypto.randomUUID();
     const content = "新規メモ";
-    createMemos(id, content);
+    setNewMemo(id, content);
     setSelectedMemo({ id, content });
   }
 
-  function createMemos(id, content) {
+  function setNewMemo(id, content) {
     const newMemo = { id, content };
     const newMemos = [...memos];
     newMemos.push(newMemo);
@@ -62,14 +62,10 @@ function App() {
   }
 
   function handleDeleteMemo() {
-    deleteMemo();
-    setSelectedMemo({});
-  }
-
-  function deleteMemo() {
     const deletedMemos = memos.filter((memo) => memo.id !== selectedMemo.id);
     setMemos(deletedMemos);
     localStorage.removeItem(selectedMemo.id);
+    setSelectedMemo({});
   }
 
   return (
