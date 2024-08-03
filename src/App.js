@@ -78,16 +78,16 @@ function App() {
           onCreate={handleCreateNewMemo}
         />
       </div>
-      {selectedMemo.id && (
-        <div>
+      <div>
+        {selectedMemo.id && (
           <MemoDetail
             content={selectedMemo.content}
             onChange={handleEditContent}
             onSave={handleSaveContent}
             onDelete={handleDeleteMemo}
           />
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
