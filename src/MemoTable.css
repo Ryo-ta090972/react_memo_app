@@ -1,0 +1,15 @@
+.selected {
+  cursor: pointer;
+  color: black;
+}
+
+.list {
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+}
+
+.create-new-memo {
+  cursor: pointer;
+  color: blue;
+}
