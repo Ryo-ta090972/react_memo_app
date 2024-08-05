@@ -1,7 +1,10 @@
 import React from "react";
+import { useIsLogin } from "./isLogin";
 import "./MemoTable.css";
 
 export default function MemoTable({ memos, selectedId, onSelect, onCreate }) {
+  const { isLogin } = useIsLogin();
+
   function extractFirstRow(content) {
     const indexOfFirstRow = content.indexOf("\n");
 
@@ -30,15 +33,16 @@ export default function MemoTable({ memos, selectedId, onSelect, onCreate }) {
     );
   });
 
-  list.push(
-    <span
-      className="create-new-memo"
-      key={"createNewMemo"}
-      onClick={() => onCreate()}
-    >
-      +
-    </span>,
-  );
+  isLogin &&
+    list.push(
+      <span
+        className="create-new-memo"
+        key={"createNewMemo"}
+        onClick={() => onCreate()}
+      >
+        +
+      </span>,
+    );
 
   return list;
 }

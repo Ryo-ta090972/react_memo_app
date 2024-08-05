@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import MemoTable from "./MemoTable.js";
 import MemoDetail from "./MemoDetail.js";
+import Header from "./Header.js";
 import "./App.css";
+import { IsLoginProvider } from "./isLogin.js";
 
 function App() {
   const [memos, setMemos] = useState(fetchSavedMemos());
@@ -69,26 +71,29 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <div>
-        <MemoTable
-          memos={memos}
-          selectedId={selectedMemo.id}
-          onSelect={handleSelectMemo}
-          onCreate={handleCreateNewMemo}
-        />
-      </div>
-      <div>
-        {selectedMemo.id && (
-          <MemoDetail
-            content={selectedMemo.content}
-            onChange={handleEditContent}
-            onSave={handleSaveContent}
-            onDelete={handleDeleteMemo}
+    <IsLoginProvider>
+      <Header />
+      <div className="app">
+        <div>
+          <MemoTable
+            memos={memos}
+            selectedId={selectedMemo.id}
+            onSelect={handleSelectMemo}
+            onCreate={handleCreateNewMemo}
           />
-        )}
+        </div>
+        <div>
+          {selectedMemo.id && (
+            <MemoDetail
+              content={selectedMemo.content}
+              onChange={handleEditContent}
+              onSave={handleSaveContent}
+              onDelete={handleDeleteMemo}
+            />
+          )}
+        </div>
       </div>
-    </div>
+    </IsLoginProvider>
   );
 }
 
