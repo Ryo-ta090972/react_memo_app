@@ -8,10 +8,9 @@ function App() {
   const [selectedMemo, setSelectedMemo] = useState({});
 
   function fetchSavedMemos() {
-    return Object.entries(localStorage).map(([id, content]) => ({
-      id,
-      content,
-    }));
+    return Object.entries(localStorage)
+      .filter(([id]) => id.includes("memo_"))
+      .map(([id, content]) => ({ id, content }));
   }
 
   function handleCreateNewMemo() {
