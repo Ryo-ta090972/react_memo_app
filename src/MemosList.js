@@ -3,14 +3,12 @@ import "./MemosList.css";
 
 export default function MemoTable({ memos, selectedId, onSelect, onCreate }) {
   function extractFirstRow(content) {
-    const indexOfFirstRow = content.indexOf("\n");
+    const firstRow = content.split("\n", 1)[0];
 
-    if (indexOfFirstRow >= 1) {
-      return content.substring(0, indexOfFirstRow);
-    } else if (content === "" || indexOfFirstRow === 0) {
+    if (firstRow === "") {
       return "NO TITLE";
     } else {
-      return content;
+      return firstRow;
     }
   }
 
