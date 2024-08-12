@@ -1,5 +1,5 @@
 import React from "react";
-import "./MemoTable.css";
+import "./MemosList.css";
 
 export default function MemoTable({ memos, selectedId, onSelect, onCreate }) {
   function extractFirstRow(content) {
@@ -19,14 +19,9 @@ export default function MemoTable({ memos, selectedId, onSelect, onCreate }) {
     const className = memo.id === selectedId ? "selected" : "list";
 
     return (
-      <span
-        className={className}
-        key={memo.id}
-        onClick={() => onSelect(memo.id)}
-      >
-        {firstRow}
-        <br />
-      </span>
+      <ul className={className} key={memo.id} onClick={() => onSelect(memo.id)}>
+        <li>{firstRow}</li>
+      </ul>
     );
   });
 
