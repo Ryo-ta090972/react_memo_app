@@ -12,7 +12,7 @@ export default function MemoTable({ memos, selectedId, onSelect, onCreate }) {
     }
   }
 
-  const list = memos.map((memo) => {
+  const memosList = memos.map((memo) => {
     const firstRow = extractFirstRow(memo.content);
     const className = memo.id === selectedId ? "selected" : "list";
 
@@ -23,15 +23,16 @@ export default function MemoTable({ memos, selectedId, onSelect, onCreate }) {
     );
   });
 
-  list.push(
-    <span
-      className="create-new-memo"
-      key={"createNewMemo"}
-      onClick={() => onCreate()}
-    >
-      +
-    </span>,
+  return (
+    <>
+      {memosList}
+      <ul
+        className="create-new-memo"
+        key={"createNewMemo"}
+        onClick={() => onCreate()}
+      >
+        <li>+</li>
+      </ul>
+    </>
   );
-
-  return list;
 }
