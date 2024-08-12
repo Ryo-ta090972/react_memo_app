@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MemoTable from "./MemoTable.js";
+import MemoTable from "./MemosList.js";
 import MemoDetail from "./MemoDetail.js";
 import "./App.css";
 
