@@ -15,7 +15,7 @@ function App() {
   }
 
   function handleCreateNewMemo() {
-    const id = crypto.randomUUID();
+    const id = "memo_" + crypto.randomUUID();
     const content = "新規メモ";
     setNewMemo(id, content);
     setSelectedMemo({ id, content });
