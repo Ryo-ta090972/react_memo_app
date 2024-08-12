@@ -8,11 +8,6 @@ function App() {
   const [selectedMemo, setSelectedMemo] = useState({});
 
   function fetchSavedMemos() {
-    const savedMemos = localStorage.length === 0 ? [] : getSavedMemos();
-    return savedMemos;
-  }
-
-  function getSavedMemos() {
     return Object.entries(localStorage).map(([id, content]) => ({
       id,
       content,
