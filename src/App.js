@@ -16,11 +16,11 @@ function App() {
   function handleCreateNewMemo() {
     const id = "memo_" + crypto.randomUUID();
     const content = "新規メモ";
-    setNewMemo(id, content);
+    saveNewMemo(id, content);
     setSelectedMemo({ id, content });
   }
 
-  function setNewMemo(id, content) {
+  function saveNewMemo(id, content) {
     const newMemo = { id, content };
     const newMemos = [...memos];
     newMemos.push(newMemo);
