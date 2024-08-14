@@ -26,13 +26,13 @@ export default function MemoList({ memos, selectedId, onSelect, onCreate }) {
   return (
     <>
       {memoList}
-      <ul
+      <div
         className="create-new-memo"
         key={"createNewMemo"}
         onClick={() => onCreate()}
       >
-        <li>+</li>
-      </ul>
+        +
+      </div>
     </>
   );
 }
