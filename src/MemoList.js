@@ -17,15 +17,15 @@ export default function MemoList({ memos, selectedId, onSelect, onCreate }) {
     const className = memo.id === selectedId ? "selected" : "list";
 
     return (
-      <ul className={className} key={memo.id} onClick={() => onSelect(memo.id)}>
-        <li>{firstRow}</li>
-      </ul>
+      <li className={className} key={memo.id} onClick={() => onSelect(memo.id)}>
+        {firstRow}
+      </li>
     );
   });
 
   return (
     <>
-      {memoList}
+      <ul>{memoList}</ul>
       <div
         className="create-new-memo"
         key={"createNewMemo"}
