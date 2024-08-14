@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MemosList from "./MemosList.js";
+import MemoList from "./MemoList.js";
 import MemoDetail from "./MemoDetail.js";
 import "./App.css";
 
@@ -65,7 +65,7 @@ function App() {
   return (
     <div className="app">
       <div>
-        <MemosList
+        <MemoList
           memos={memos}
           selectedId={selectedMemo.id}
           onSelect={handleSelectMemo}

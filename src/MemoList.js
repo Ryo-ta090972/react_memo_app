@@ -1,7 +1,7 @@
 import React from "react";
-import "./MemosList.css";
+import "./MemoList.css";
 
-export default function MemoTable({ memos, selectedId, onSelect, onCreate }) {
+export default function MemoList({ memos, selectedId, onSelect, onCreate }) {
   function extractFirstRow(content) {
     const firstRow = content.split("\n", 1)[0];
 
@@ -12,7 +12,7 @@ export default function MemoTable({ memos, selectedId, onSelect, onCreate }) {
     }
   }
 
-  const memosList = memos.map((memo) => {
+  const memoList = memos.map((memo) => {
     const firstRow = extractFirstRow(memo.content);
     const className = memo.id === selectedId ? "selected" : "list";
 
@@ -25,7 +25,7 @@ export default function MemoTable({ memos, selectedId, onSelect, onCreate }) {
 
   return (
     <>
-      {memosList}
+      {memoList}
       <ul
         className="create-new-memo"
         key={"createNewMemo"}
