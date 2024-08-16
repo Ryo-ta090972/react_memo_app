@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import MemoList from "./MemoList.js";
 import MemoDetail from "./MemoDetail.js";
+import Login from "./Login.js";
+import { LoginProvider } from "./loginContext.js";
 import "./App.css";
 
 function App() {
@@ -63,26 +65,31 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <div>
-        <MemoList
-          memos={memos}
-          selectedId={selectedMemo.id}
-          onSelect={handleSelectMemo}
-          onCreate={handleCreateNewMemo}
-        />
+    <LoginProvider>
+      <div className="right">
+        <Login className="login" />
       </div>
-      <div>
-        {selectedMemo.id && (
-          <MemoDetail
-            content={selectedMemo.content}
-            onChange={handleEditContent}
-            onSave={handleSaveContent}
-            onDelete={handleDeleteMemo}
+      <div className="app">
+        <div>
+          <MemoList
+            memos={memos}
+            selectedId={selectedMemo.id}
+            onSelect={handleSelectMemo}
+            onCreate={handleCreateNewMemo}
           />
-        )}
+        </div>
+        <div>
+          {selectedMemo.id && (
+            <MemoDetail
+              content={selectedMemo.content}
+              onChange={handleEditContent}
+              onSave={handleSaveContent}
+              onDelete={handleDeleteMemo}
+            />
+          )}
+        </div>
       </div>
-    </div>
+    </LoginProvider>
   );
 }
 

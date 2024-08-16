@@ -1,7 +1,10 @@
 import React from "react";
+import { useLogin } from "./loginContext";
 import "./MemoList.css";
 
 export default function MemoList({ memos, selectedId, onSelect, onCreate }) {
+  const { isLogin } = useLogin();
+
   function extractFirstRow(content) {
     const firstRow = content.split("\n", 1)[0];
 
@@ -26,13 +29,15 @@ export default function MemoList({ memos, selectedId, onSelect, onCreate }) {
   return (
     <>
       <ul>{memoList}</ul>
-      <div
-        className="create-new-memo"
-        key={"createNewMemo"}
-        onClick={() => onCreate()}
-      >
-        +
-      </div>
+      {isLogin && (
+        <div
+          className="create-new-memo"
+          key={"createNewMemo"}
+          onClick={() => onCreate()}
+        >
+          +
+        </div>
+      )}
     </>
   );
 }
